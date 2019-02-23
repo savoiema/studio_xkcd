@@ -19,7 +19,7 @@ GET /api HTTP/1.1
 Accept: */*
 Accept-Encoding: gzip, deflate
 Connection: keep-alive
-Host: studio.savoie.io
+Host: example.com
 User-Agent: HTTPie/1.0.2
 X-User-ID: 40F6E3C9-06B8-468E-A908-1C6F3EB6B0F1
 ```
@@ -37,7 +37,7 @@ this api returns an array of XKCD comics
 * `/api/?count`: you can limit the number of items returned with the count parameter, with in the limits provided above
 
 ##### Examples
-###### GET - `/api/` - `http -v --pretty=format studio.savoie.io/api 'X-User-ID:40F6E3C9-06B8-468E-A908-1C6F3EB6B0F1'`
+###### GET - `/api/` - `http -v --pretty=format example.com/api 'X-User-ID:40F6E3C9-06B8-468E-A908-1C6F3EB6B0F1'`
 ```http request
 {
     "count": 20,
@@ -63,13 +63,13 @@ this api returns an array of XKCD comics
 }
 ```
 
-###### GET - `/api/123` - `http -v --pretty=format studio.savoie.io/api/123 'X-User-ID:40F6E3C9-06B8-468E-A908-1C6F3EB6B0F1'`
+###### GET - `/api/123` - `http -v --pretty=format example.com/api/123 'X-User-ID:40F6E3C9-06B8-468E-A908-1C6F3EB6B0F1'`
 ```http request
 GET /api/123 HTTP/1.1
 Accept: */*
 Accept-Encoding: gzip, deflate
 Connection: keep-alive
-Host: studio.savoie.io
+Host: example.com
 User-Agent: HTTPie/1.0.2
 X-User-ID: 40F6E3C9-06B8-468E-A908-1C6F3EB6B0F1
 
@@ -106,13 +106,13 @@ Server: nginx/1.14.0 (Ubuntu)
 }
 ```
 
-###### GET - `/api/?count=1` - `http -v --pretty=format 'studio.savoie.io/api/?count=1' 'X-User-ID:40F6E3C9-06B8-468E-A908-1C6F3EB6B0F1'`
+###### GET - `/api/?count=1` - `http -v --pretty=format 'example.com/api/?count=1' 'X-User-ID:40F6E3C9-06B8-468E-A908-1C6F3EB6B0F1'`
 ```http request
 GET /api/?count=1 HTTP/1.1
 Accept: */*
 Accept-Encoding: gzip, deflate
 Connection: keep-alive
-Host: studio.savoie.io
+Host: example.com
 User-Agent: HTTPie/1.0.2
 X-User-ID: 40F6E3C9-06B8-468E-A908-1C6F3EB6B0F1
 
@@ -166,13 +166,13 @@ When querying the user's favorites you can request details. this will query XKCD
 
 ##### Examples
 
-###### GET - `/api/favorites` - `http -v --pretty=format 'studio.savoie.io/api/favorites' 'X-User-ID:40F6E3C9-06B8-468E-A908-1C6F3EB6B0F1'`
+###### GET - `/api/favorites` - `http -v --pretty=format 'example.com/api/favorites' 'X-User-ID:40F6E3C9-06B8-468E-A908-1C6F3EB6B0F1'`
 ```http request
 GET /api/favorites HTTP/1.1
 Accept: */*
 Accept-Encoding: gzip, deflate
 Connection: keep-alive
-Host: studio.savoie.io
+Host: example.com
 User-Agent: HTTPie/1.0.2
 X-User-ID: 40F6E3C9-06B8-468E-A908-1C6F3EB6B0F1
 
@@ -193,13 +193,13 @@ Server: nginx/1.14.0 (Ubuntu)
     ]
 }
 ```
-###### GET with details - `/api/favorites/?detailed=true` - `http -v --pretty=format 'studio.savoie.io/api/favorites/?detailed=true' 'X-User-ID:40F6E3C9-06B8-468E-A908-1C6F3EB6B0F1'`
+###### GET with details - `/api/favorites/?detailed=true` - `http -v --pretty=format 'example.com/api/favorites/?detailed=true' 'X-User-ID:40F6E3C9-06B8-468E-A908-1C6F3EB6B0F1'`
 ```http request
 GET /api/favorites/?detailed=true HTTP/1.1
 Accept: */*
 Accept-Encoding: gzip, deflate
 Connection: keep-alive
-Host: studio.savoie.io
+Host: example.com
 User-Agent: HTTPie/1.0.2
 X-User-ID: 40F6E3C9-06B8-468E-A908-1C6F3EB6B0F1
 
@@ -233,7 +233,7 @@ Server: nginx/1.14.0 (Ubuntu)
     ]
 }
 ```
-###### POST - `/api/favorites` - `http -v --pretty=format POST 'studio.savoie.io/api/favorites' num=1234 'X-User-ID:40F6E3C9-06B8-468E-A908-1C6F3EB6B0F1'`
+###### POST - `/api/favorites` - `http -v --pretty=format POST 'example.com/api/favorites' num=1234 'X-User-ID:40F6E3C9-06B8-468E-A908-1C6F3EB6B0F1'`
 ```http request
 POST /api/favorites HTTP/1.1
 Accept: application/json, */*
@@ -241,7 +241,7 @@ Accept-Encoding: gzip, deflate
 Connection: keep-alive
 Content-Length: 15
 Content-Type: application/json
-Host: studio.savoie.io
+Host: example.com
 User-Agent: HTTPie/1.0.2
 X-User-ID: 40F6E3C9-06B8-468E-A908-1C6F3EB6B0F1
 
@@ -264,14 +264,14 @@ Server: nginx/1.14.0 (Ubuntu)
     }
 }
 ```
-###### DELETE - `/api/favorites` - `http -v --pretty=format DELETE 'studio.savoie.io/api/favorites/1234' 'X-User-ID:40F6E3C9-06B8-468E-A908-1C6F3EB6B0F1'`
+###### DELETE - `/api/favorites` - `http -v --pretty=format DELETE 'example.com/api/favorites/1234' 'X-User-ID:40F6E3C9-06B8-468E-A908-1C6F3EB6B0F1'`
 ```http request
 DELETE /api/favorites/1234 HTTP/1.1
 Accept: */*
 Accept-Encoding: gzip, deflate
 Connection: keep-alive
 Content-Length: 0
-Host: studio.savoie.io
+Host: example.com
 User-Agent: HTTPie/1.0.2
 X-User-ID: 40F6E3C9-06B8-468E-A908-1C6F3EB6B0F1
 
