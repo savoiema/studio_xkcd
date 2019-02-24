@@ -2,8 +2,6 @@
 
 import logging
 
-import structlog
-
 import tornado.httpserver
 import tornado.ioloop
 import tornado.options
@@ -15,15 +13,15 @@ from tornado.web import URLSpec as Url
 from handlers.health import HealthHandler
 from handlers.xkcd import XkcdHandler
 from handlers.favorites import FavoritesHandler
+from utils.settings import Settings
 
-
-logger = structlog.get_logger()
+settings = Settings.get_instance()
 
 
 class Application(tornado.web.Application):
     def __init__(self):
         app_settings = {
-            'debug': True
+            'debug': settings['general']['debug']
         }
 
         app_handlers = [
@@ -38,26 +36,19 @@ class Application(tornado.web.Application):
 if __name__ == '__main__':
     tornado.options.parse_command_line()
 
-    structlog.configure(
-        processors=[
-            structlog.processors.KeyValueRenderer(
-                key_order=['event', 'request_id'],
-            ),
-        ],
-        context_class=structlog.threadlocal.wrap_dict(dict),
-        logger_factory=structlog.stdlib.LoggerFactory(),
-    )
+    if settings['general']['debug']:
+        logging.getLogger().setLevel(logging.DEBUG)
+        logging.debug('debug logging enabled')
 
-    logging.getLogger().setLevel(logging.DEBUG)
-    logging.debug('debug logging enabled')
-
-    name = 'Test App Name'
-    port = 8086
-    address = '0.0.0.0'
+    name = settings['general']['name']
+    port = settings['general']['port']
+    address = settings['general']['address']
     logging.info('starting %s on %s:%d', name, address, port)
 
     http_server = tornado.httpserver.HTTPServer(
-        request_callback=Application(), xheaders=True)
+        request_callback=Application(),
+        xheaders=True
+    )
     http_server.listen(port, address=address)
 
     tornado.ioloop.IOLoop.instance().start()

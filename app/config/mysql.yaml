@@ -1,0 +1,5 @@
+database: studio_xkcd
+username: studio_user
+password: !secret mysql_password
+hostname: 172.18.0.2
+hostport: 3306

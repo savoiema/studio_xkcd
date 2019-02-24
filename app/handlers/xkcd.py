@@ -1,11 +1,8 @@
-import structlog
-
 from model import Favorite
 from utils.xkcd import Randall
 from handlers.base import ApiBaseHandler
 
 randall = Randall()
-logger = structlog.get_logger()
 
 
 class XkcdHandler(ApiBaseHandler):

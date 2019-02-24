@@ -1,14 +1,12 @@
-import structlog
+import logging
 
 from model import Favorite
 from utils.xkcd import Randall
 from handlers.base import ApiBaseHandler
 
 randall = Randall()
-logger = structlog.get_logger()
 
 
-# 886313e1-3b8a-5372-9b90-0c9aee199e5d
 class FavoritesHandler(ApiBaseHandler):
     def data_received(self, chunk):
         pass
@@ -47,7 +45,7 @@ class FavoritesHandler(ApiBaseHandler):
                 favorite = Favorite.save_favorite({'user_id': user_id, 'xkcd_id': xkcd_id})
                 self.api_response({'results': favorite})
             except Exception as e:
-                logger.error("Error: {}".format(e))
+                logging.error("Error: {}".format(e))
                 self.api_response('Unexpected error saving favorite', 500)
         else:
             self.api_response('missing information', 400)

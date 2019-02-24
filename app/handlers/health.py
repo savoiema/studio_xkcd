@@ -1,6 +1,6 @@
-import tornado.web
+from handlers.base import ApiBaseHandler
 
 
-class HealthHandler(tornado.web.RequestHandler):
+class HealthHandler(ApiBaseHandler):
     def get(self):
         self.finish('OK')

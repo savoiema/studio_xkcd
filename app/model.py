@@ -1,11 +1,14 @@
 from peewee import *
+from utils.settings import Settings
+
+settings = Settings.get_instance()
 
 mysql_db = MySQLDatabase(
-    'studio_xkcd',
-    user='studio_user',
-    password='PASSWORD',
-    host='172.18.0.2',
-    port=3306
+    settings['mysql']['database'],
+    user=settings['mysql']['username'],
+    password=settings['mysql']['password'],
+    host=settings['mysql']['hostname'],
+    port=settings['mysql']['hostport']
 )
 
 

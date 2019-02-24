@@ -1,19 +1,17 @@
-import json
-import redis
-import structlog
-
-from tornado.httpclient import AsyncHTTPClient, HTTPError
-
-cache = redis.Redis(host='172.18.0.4', port=6379)
-logger = structlog.get_logger()
+import logging
+from tornado.httpclient import HTTPError
+from utils.cachedhttpclient import CachedClient
+from utils.settings import Settings
 
 
 class Randall:
     def __init__(self):
-        self._cache_expires = 604800
+        self.settings = Settings.get_instance()
+        self._http_client = CachedClient(
+            redis_hostname=self.settings['redis']['hostname'],
+            cache_expires=self.settings['redis']['cache_expires'])
         self._max_count = 20
         self._default_count = 20
-        self._http_client = AsyncHTTPClient()
 
     @property
     def xkcd_api_url(self):
@@ -49,29 +47,16 @@ class Randall:
     async def fetch(self, num=None):
         num = Randall.validate_xkcd_id(num)
         url = '{}{}'.format(self.xkcd_api_url,  str(num) if num else '')
-        logger.info('url: {}'.format(url))
+        logging.info('url: {}'.format(url))
 
-        if num:
-            value = cache.get(url)
-        else:
-            value = None
+        try:
+            response = await self._http_client.fetch(url)
+        except HTTPError as e:
+            raise e
+        except Exception as e:
+            raise e
 
-        if value:
-            logger.info('Cache hit - {}'.format(url))
-            response_body = json.loads(value)
-        else:
-            logger.info('Cache miss - {}'.format(url))
-
-            try:
-                response = await self._http_client.fetch(url)
-                response_body = json.loads(response.body)
-                cache.set(url, response.body, ex=self._cache_expires)
-            except HTTPError as e:
-                raise e
-            except Exception as e:
-                raise e
-
-        return response_body
+        return response
 
     async def fetch_many(self, num=None, count=20):
         response = []
