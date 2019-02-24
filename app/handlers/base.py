@@ -1,19 +1,7 @@
-import time
 import json
-import datetime
 import tornado.web
 
 from uuid import UUID
-
-
-def unix_time_ms(datetime_instance):
-    return int(time.mktime(datetime_instance.timetuple()) * 1e3 + datetime_instance.microsecond / 1e3)
-
-
-def datetime_serializer(obj):
-    if isinstance(obj, datetime.datetime):
-        return int(unix_time_ms(obj) / 1000)
-    raise TypeError('Not sure how to serialize %s' % (obj,))
 
 
 class ApiBaseHandler(tornado.web.RequestHandler):
