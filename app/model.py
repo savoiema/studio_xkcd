@@ -1,3 +1,4 @@
+import logging
 from peewee import *
 from utils.settings import Settings
 
@@ -10,6 +11,19 @@ mysql_db = MySQLDatabase(
     host=settings['mysql']['hostname'],
     port=settings['mysql']['hostport']
 )
+
+
+def mysql_query(func):
+    def function_wrapper(*args, **kwargs):
+        if mysql_db.is_closed():
+            logging.info('Opening MySQL Connection')
+            mysql_db.connect()
+        result = func(*args, **kwargs)
+        if not mysql_db.is_closed():
+            logging.info('Closing MySQL Connection')
+            mysql_db.close()
+        return result
+    return function_wrapper
 
 
 class BaseModel(Model):
@@ -42,6 +56,7 @@ class Favorite(BaseModel):
         return favorite
 
     @classmethod
+    @mysql_query
     def delete_favorite(cls, user_id, xkcd_id):
         try:
             delete_count = 0
@@ -54,6 +69,7 @@ class Favorite(BaseModel):
         return delete_count, item
 
     @classmethod
+    @mysql_query
     def save_favorite(cls, favorite_object):
         favorite = Favorite.from_dict(favorite_object)
         favorite.save()
@@ -64,6 +80,7 @@ class Favorite(BaseModel):
         raise Exception('there were issues saving the data')
 
     @classmethod
+    @mysql_query
     def get_user_favorites(cls, user_id):
         if not user_id:
             return []
