@@ -58,7 +58,7 @@ this api returns an array of XKCD comics
             "transcript": "",
             "year": "2019"
         }
-        ... results abreviated ...
+        ... results abbreviated ...
     ]
 }
 ```
@@ -101,7 +101,7 @@ Server: nginx/1.14.0 (Ubuntu)
             "transcript": "[[ Bond is tied to a giant centrifuge ]]\nHat Guy: Do you like my centrifuge, Mister Bond? When I throw the lever, you will feel centrifugal force crush every bone in your body.\nMr. Bond: You mean centripetal force. There's no such thing as centrifugal force.\nHat Guy: A laughable claim, Mister Bond, perpetuated by overzealous teachers of science. Simply construct Newton's laws into a rotating system and you will see a centrifugal force term appear as plain as day.\nMr. Bond: Come now, do you really expect me to do coordinate substitution in my head while strapped to a centrifuge?\nHat Guy: No, Mr. Bond. I expect you to die.\n{{ alt: You spin me right round, baby, right round, in a manner depriving me of an inertial reference frame.  Baby. }}",
             "year": "2006"
         }
-        ... results abreviated ...
+        ... results abbreviated ...
     ]
 }
 ```
